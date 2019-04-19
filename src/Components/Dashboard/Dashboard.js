@@ -5,8 +5,10 @@ export default class Dashboard extends Component {
 	render() {
 		return (
 			<div>
-				Dashboard
-				<Product/>
+				{this.props.inventory.map(product => {
+					return <Product key={product.id} product={product}
+					inventory={this.props.inventory}/>
+				})}
 			</div>
 		)
 	}
