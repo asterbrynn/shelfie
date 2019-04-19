@@ -9,13 +9,10 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      inventory: [{name: 'Asterism', price: 50, imgurl: 'https://ln.nikkis.info/preview/accessory125.jpg', id: 0},
-      {name: 'Starsea Necklace', price: 75, imgurl: 'https://ln.nikkis.info/preview/accessory126.jpg', id: 1},
-      {name:'Starsea Gloves', price: 80, imgurl: 'https://ln.nikkis.info/preview/accessory127.jpg', id: 2}]
+      inventory: []
     }
-    this.getInventory = this.getInventory.bind(this)
   }
-  getInventory = () => {
+  componentDidMount() {
     axios.get('/api/inventory').then(res => {
       this.setState({
         inventory: res.data
@@ -24,10 +21,10 @@ class App extends Component {
   }
   render() {
     return (
-      <div className="App">
+      <div className="App" style={{justifyContent:"center", alignItems: "baseline"}}>
         <Header/>
         <Dashboard inventory={this.state.inventory}/>
-        <Form/>
+        <Form inventory={this.state.inventory}/>
       </div>
     );
   }

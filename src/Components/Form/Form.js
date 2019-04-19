@@ -9,6 +9,7 @@ export default class Form extends Component {
 			price: 0,
 			imgurl: ""
 		}
+		this.handleCancel = this.handleCancel.bind(this)
 	}
 	handleURLChange = e => {
 		this.setState({
@@ -28,13 +29,16 @@ export default class Form extends Component {
 
 	handleAdd = () => {
 		let newProduct = this.state;
+		let inventory = this.props.inventory;
 		axios.post('/api/product', newProduct).then(res => {
 			this.setState({
-				// res.data
+				imgurl: res.data.img,
+				name: res.data.name,
+				price: res.data.price
 			})
 		}).catch(err => console.log("posting error lol", err))
 	}
-	handleCancel = () => {
+	handleCancel() {
 		this.setState({
 			name: "",
 			price: 0,
@@ -44,7 +48,7 @@ export default class Form extends Component {
 
 	render() {
 		return (
-			<div>
+			<div style={{backgroundColor: "#3AD886", margin: 20, padding: 20}}>
 				Form
 				<p>
 					<label htmlFor="imgurl">Image URL: </label>

@@ -13,3 +13,4 @@ massive(CONNECTION_STRING).then(dbInstance => {
 }).catch(err => console.log("oopsies!", err))
 
 app.get('/api/inventory', controller.getInventory)
+app.post('/api/product', controller.create)
