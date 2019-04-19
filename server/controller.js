@@ -7,7 +7,8 @@ module.exports = {
 	},
 	create(req, res) {
 		const db = req.app.get("db");
-		db.create_product().then(response => {
+		const {name, price, img} = req.body;
+		db.create_product([name, price, img]).then(response => {
 			res.status(200).send(response)
 		})
 	}

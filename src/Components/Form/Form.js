@@ -27,17 +27,6 @@ export default class Form extends Component {
 		})
 	}
 
-	handleAdd = () => {
-		let newProduct = this.state;
-		let inventory = this.props.inventory;
-		axios.post('/api/product', newProduct).then(res => {
-			this.setState({
-				imgurl: res.data.img,
-				name: res.data.name,
-				price: res.data.price
-			})
-		}).catch(err => console.log("posting error lol", err))
-	}
 	handleCancel() {
 		this.setState({
 			name: "",
@@ -45,14 +34,30 @@ export default class Form extends Component {
 			imgurl: ""
 		})
 	}
-
+	handleAdd = () => {
+		let {name, price, img} = this.state;
+		axios.post('/api/product', {name, price, img}).then(res => {
+			this.setState({
+				name,
+				price,
+				img
+			})
+		}).catch(err => console.log("posting error lol", err))
+		this.handleCancel();
+	}
+	// componentDidUpdate(prevProps, prevState) {
+	// 	if (prevProps.data !== this.props.data) {
+	// 		this.handleCancel()
+	// 	}
+	// }
+	
 	render() {
 		return (
 			<div style={{backgroundColor: "#3AD886", margin: 20, padding: 20}}>
 				Form
 				<p>
 					<label htmlFor="imgurl">Image URL: </label>
-					<input type="url"
+					<input type="text"
 						name="imgurl" id="imgurl"
 						value={this.state.imgurl}
 						onChange={this.handleURLChange}/>
